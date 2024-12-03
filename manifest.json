@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "ScoreAcc",
+  "name": "ScoreAcc",
+  "author": "BlqzingIce",
+  "version": "1.0.0",
+  "description": "ScorePercentage knockoff",
+  "gameVersion": "1.39.1",
+  "dependsOn": {
+    "BSIPA": "^4.3.0",
+    "SiraUtil": "^3.0.0"
+  }
+}
