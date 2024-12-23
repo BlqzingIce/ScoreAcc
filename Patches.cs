@@ -20,7 +20,8 @@ namespace ScoreAcc
             _beatmapLevelsEntitlementModel = beatmapLevelsEntitlementModel;
         }
 
-        [AffinityPatch(typeof(LevelStatsView), nameof(LevelStatsView.ShowStats))]
+        [AffinityPatch(typeof(LevelStatsView), nameof(LevelStatsView.ShowStats), AffinityMethodType.Normal, new [] { AffinityArgumentType.Ref, AffinityArgumentType.Normal }, typeof(BeatmapKey), typeof(PlayerData) )]
+
         [AffinityPostfix]
         private void Postfix(in BeatmapKey beatmapKey, PlayerData playerData, TextMeshProUGUI ____highScoreText)
         {
@@ -38,7 +39,7 @@ namespace ScoreAcc
             }
         }
 
-        private async void ShowPercentage(BeatmapKey beatmapKey, PlayerData playerData, int currentScore,TextMeshProUGUI ____highScoreText)
+        private async void ShowPercentage(BeatmapKey beatmapKey, PlayerData playerData, int currentScore, TextMeshProUGUI ____highScoreText)
         {
             BeatmapLevel beatmapLevel = _standardLevelDetailViewController.beatmapLevel;
             BeatmapLevelDataVersion beatmapLevelDataVersion = await _beatmapLevelsEntitlementModel.GetLevelDataVersionAsync(beatmapLevel.levelID, CancellationToken.None);
@@ -180,8 +181,7 @@ namespace ScoreAcc
     {
         public static double CalculatePercentage(int maxScore, int resultScore)
         {
-            double resultPercentage = (double)(100 / (double)maxScore * (double)resultScore);
-            return resultPercentage;
+            return 100 / (double)maxScore * resultScore;
         }
     }
 }
