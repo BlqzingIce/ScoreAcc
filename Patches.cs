@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace ScoreAcc
 {
@@ -60,9 +61,10 @@ namespace ScoreAcc
     {
         public static int highScore = 0;
 
-        public ResultsViewData(PlayerDataModel playerDataModel, BeatmapKey beatmapKey)
+        public ResultsViewData(PlayerDataModel playerDataModel, BeatmapKey? beatmapKey = null)
         {
-            var playerLevelStatsData = playerDataModel.playerData.GetOrCreatePlayerLevelStatsData(beatmapKey);
+            if (beatmapKey == null) return;
+            var playerLevelStatsData = playerDataModel.playerData.GetOrCreatePlayerLevelStatsData(beatmapKey.GetValueOrDefault());
             highScore = playerLevelStatsData.validScore ? playerLevelStatsData.highScore : 0;
         }
     }
